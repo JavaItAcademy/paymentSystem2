@@ -6,8 +6,8 @@ http://localhost:8080/clients
 Тело:
 ```
 {
-	"name": "NameTest",
-	"phoneNumber": "321"
+    "name": "NameTest",
+    "phoneNumber": "321"
 }
 ```
 -------------------------------------------------------------
@@ -37,7 +37,6 @@ http://localhost:8080/payments
 
 Тело, заменить `id` для `accountFrom` и `accountTo` использовать id клиетов созданных выше:
 ```
-{
 {
     "amount": 100,
     "accountFrom": {
