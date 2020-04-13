@@ -9,4 +9,8 @@ public interface PaymentService extends BaseService<Payment> {
     Payment createPayment(Payment payment);
 
     List<Payment> getByStatus(Status status);
+
+    List<Payment> getByClientId(Long clientId);
+
+    List<Payment> getByClientIdNative(Long clientId);
 }

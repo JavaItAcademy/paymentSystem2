@@ -35,7 +35,7 @@ POST, на создание платежа
 http://localhost:8080/payments
 ```
 
-Тело, заменить `id` для `accountFrom` и `accountTo` использовать id клиетов созданных выше:
+Тело, заменить `id` для `accountFrom` и `accountTo` использовать id счетов созданных выше:
 ```
 {
     "amount": 100,

@@ -28,8 +28,19 @@ public class PaymentController {
     public Payment getById(@PathVariable("id") Long id) {
         return paymentService.getById(id);
     }
+
     @GetMapping("/getByStatus/{status}")
     public List<Payment> getByStatus(@PathVariable("status") Status status) {
         return paymentService.getByStatus(status);
+    }
+
+    @GetMapping("/getByClientId/{clientId}")
+    public List<Payment> getByClientId(@PathVariable("clientId") Long clientId) {
+        return paymentService.getByClientId(clientId);
+    }
+
+    @GetMapping("/getByClientIdNative/{clientId}")
+    public List<Payment> getByClientIdNative(@PathVariable("clientId") Long clientId) {
+        return paymentService.getByClientIdNative(clientId);
     }
 }

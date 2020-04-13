@@ -46,6 +46,8 @@ public class PaymentServiceImpl implements PaymentService {
             to.setBalance(to.getBalance().add(payment.getAmount()));
             accountService.save(from);
             accountService.save(to);
+            payment.setAccountFrom(from);
+            payment.setAccountTo(to);
             //Put money to
         }
         return save(payment);
@@ -56,4 +58,15 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentRepo.findAllByStatusQuery(status);
 //        return paymentRepo.findAllByStatus(status);
     }
+
+    @Override
+    public List<Payment> getByClientId(Long clientId) {
+        return paymentRepo.findAllByAccountFrom_Client_Id(clientId);
+    }
+
+    @Override
+    public List<Payment> getByClientIdNative(Long clientId) {
+        return paymentRepo.findAllByClientId(clientId);
+    }
+
 }

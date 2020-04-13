@@ -15,4 +15,11 @@ public interface PaymentRepo extends JpaRepository<Payment, Long> {
 
     @Query("select p from Payment p where status =:status")
     List<Payment> findAllByStatusQuery(@Param("status") Status status);
+
+    List<Payment> findAllByAccountFrom_Client_Id(Long clientId);
+
+    @Query(value = "select p.* from p_payments p" +
+            " left join p_accounts pa on p_payments.account_from_id = pa.id" +
+            " where pa.client_id = :client_id", nativeQuery = true)
+    List<Payment> findAllByClientId(@Param("client_id") Long clientId);
 }
