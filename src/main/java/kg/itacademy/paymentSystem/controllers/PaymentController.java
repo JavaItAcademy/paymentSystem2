@@ -2,8 +2,11 @@ package kg.itacademy.paymentSystem.controllers;
 
 import kg.itacademy.paymentSystem.enttities.Payment;
 import kg.itacademy.paymentSystem.enums.Status;
+import kg.itacademy.paymentSystem.models.ConfirmationModel;
+import kg.itacademy.paymentSystem.models.ResponseMessage;
 import kg.itacademy.paymentSystem.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +23,18 @@ public class PaymentController {
     }
 
     @PostMapping
-    public Payment save(@RequestBody Payment payment) {
-        return paymentService.createPayment(payment);
+    public ResponseMessage save(@RequestBody Payment payment) {
+        try {
+            return ResponseMessage.builder()
+                    .success(true)
+                    .json(paymentService.createPayment(payment))
+                    .build();
+        } catch (Exception e) {
+            return ResponseMessage.builder()
+                    .success(false)
+                    .message(e.getMessage())
+                    .build();
+        }
     }
 
     @GetMapping("/{id}")
@@ -42,5 +55,20 @@ public class PaymentController {
     @GetMapping("/getByClientIdNative/{clientId}")
     public List<Payment> getByClientIdNative(@PathVariable("clientId") Long clientId) {
         return paymentService.getByClientIdNative(clientId);
+    }
+
+    @PostMapping("/confirm")
+    public ResponseMessage confirm(@RequestBody ConfirmationModel confirmationModel, @RequestHeader String codeWord) {
+        try {
+            return ResponseMessage.builder()
+                    .success(true)
+                    .json(paymentService.confirmPayment(confirmationModel, codeWord))
+                    .build();
+        } catch (Exception e) {
+            return ResponseMessage.builder()
+                    .success(false)
+                    .message(e.getMessage())
+                    .build();
+        }
     }
 }
